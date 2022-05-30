@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SUMMER GAME</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/animate.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
+</head>
+
+<body>
+    <main class="splash-screen-main">
+        <div class="basic-ellipse">
+            <div class="start-block">
+                <div class="letter s-letter"></div>
+                <div class="letter t-letter"></div>
+                <div class="letter a-letter"></div>
+                <div class="letter r-letter"></div>
+                <div class="letter t-second-letter"></div>
+            </div>
+            <div class="summer-block">
+                <div class="letter s-letter"></div>
+                <div class="letter u-letter"></div>
+                <div class="letter m-letter"></div>
+                <div class="letter m-second-letter"></div>
+                <div class="letter e-letter"></div>
+                <div class="letter r-letter"></div>
+            </div>
+            <div class="slipper-block"></div>
+        </div>
+        <h6 class="phase-one-instructions hide">Click on start summer button, or Enter button from keyboard to start...</h6>
+    </main>
+    <iframe src="audio/silence.wav" allow="autoplay" id="silenceAudio"></iframe>
+    <audio autoplay id="splash-screen-audio">
+        <source src="audio/splash-screen-audio.mp3" type="audio/mp3">
+    </audio>
+    <script src="js/TweenMax.min.js"></script>
+    <script src="js/spalshScreen-script.js"></script>
+</body>
+
+</html>

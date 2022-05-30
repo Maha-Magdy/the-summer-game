@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SUMMER GAME</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/animate.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
+</head>
+
+<body>
+    <main class="choose-character-main">
+        <section class="boy-section">
+            <div class="ellipse-animation-set hide">
+                <img src="images/choose-character-elements/boy-ellipse.svg"
+                    alt="ellipse of boy character that surround it" style="animation-delay: -3s">
+                <img src="images/choose-character-elements/boy-ellipse.svg"
+                    alt="ellipse of boy character that surround it" style="animation-delay: -2s">
+                <img src="images/choose-character-elements/boy-ellipse.svg"
+                    alt="ellipse of boy character that surround it" style="animation-delay: -1s">
+                <img src="images/choose-character-elements/boy-ellipse.svg"
+                    alt="ellipse of boy character that surround it" style="animation-delay: 0s">
+            </div>
+            <div class="character-block">
+                <img src="images/choose-character-elements/boy-ellipse.svg"
+                    alt="ellipse of boy character that surround it">
+                <img class="boy-character animated bounce fast" id="boy-character" src="images/choose-character-elements/boy-character.png"
+                    alt="boy-character">
+            </div>
+
+        </section>
+        <section class="girl-section">
+            <div class="ellipse-animation-set hide">
+                <img src="images/choose-character-elements/girl-ellipse.svg"
+                    alt="ellipse of girl character that surround it" style="animation-delay: -3s">
+                <img src="images/choose-character-elements/girl-ellipse.svg"
+                    alt="ellipse of girl character that surround it" style="animation-delay: -2s">
+                <img src="images/choose-character-elements/girl-ellipse.svg"
+                    alt="ellipse of girl character that surround it" style="animation-delay: -1s">
+                <img src="images/choose-character-elements/girl-ellipse.svg"
+                    alt="ellipse of girl character that surround it" style="animation-delay: 0s">
+            </div>
+            <div class="character-block">
+                <img src="images/choose-character-elements/girl-ellipse.svg"
+                    alt="ellipse of girl character that surround it">
+                <img class="girl-character animated bounce fast" id="girl-character"
+                    src="images/choose-character-elements/girl-character.png" alt="girl-character">
+            </div>
+        </section>
+        <h6 class="phase-two-instructions animated fadeIn">choose one of characters to start to play with it by clicking
+            on it or swapping with Arrows then click Enter</h6>
+        <!-- <form action="./game-board.html" method="POST" class="hide">
+            <input name="chosenCharacter" id="chosenCharacter" type="text">
+            <input type="submit" >
+        </form> -->
+    </main>
+    <iframe src="audio/silence.wav" allow="autoplay" id="silenceAudio"></iframe>
+    <audio autoplay id="choose-character-screen-audio">
+        <source src="audio/Bloop, Cartoon Little Bloop.mp3" type="audio/mp3">
+    </audio>
+    <audio id="choose-character-audio">
+        <source src="audio/Plink, Cartoon Sour Plink.mp3" type="audio/mp3">
+    </audio>
+    <script src="js/chooseCharacter-script.js"></script>
+</body>
+
+</html>
