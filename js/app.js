@@ -1,14 +1,16 @@
 //predefined variables
 var character = localStorage["chosenCharacter"];
 let score = 0;
+let life = 3;
 
 // Enemies our player must avoid
-var Enemy = function (x, y, speed, car) {
+var Enemy = function (x, y, speed, car, platform) {
   // Variables applied to each of our instances go here,
   // we've provided one for you to get started
   this.x = x;
   this.y = y;
   this.speed = speed;
+  this.platform = platform;
 
   // The image/sprite for our enemies, this uses
   // a helper we've provided to easily load images
@@ -29,12 +31,45 @@ Enemy.prototype.update = function (dt) {
       Math.random() * 2
     )}.gif`;
   }
-  // this.checkCollision();
+  this.checkCollision();
 };
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function () {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y, 190, 116);
+};
+
+// checks an enemy's collision with player
+Enemy.prototype.checkCollision = function () {
+  if (
+    this.platform === 1 &&
+    player.dx >= this.x &&
+    player.dx <= this.x + 190 &&
+    player.dy <= this.y - 50 &&
+    player.dy >= this.y - 135
+  ) {
+    console.log("Heeeey collision bam_1!");
+  }
+
+  if (
+    this.platform === 2 &&
+    player.dx >= this.x &&
+    player.dx <= this.x + 190 &&
+    player.dy <= this.y - 50 &&
+    player.dy >= this.y - 135
+  ) {
+    console.log("Heeeey collision bam_2!");
+  }
+
+  if (
+    this.platform === 3 &&
+    player.dx >= this.x &&
+    player.dx <= this.x + 190 &&
+    player.dy <= this.y - 50 &&
+    player.dy >= this.y - 135
+  ) {
+    console.log("Heeeey collision bam_3!");
+  }
 };
 
 // Now write your own player class
@@ -142,19 +177,22 @@ function gameReset() {
       0,
       165,
       Math.random() * 100 + 40,
-      `car-${Math.round(Math.random() * 2)}`
+      `car-${Math.round(Math.random() * 2)}`,
+      3
     ),
     new Enemy(
       0,
       265,
       Math.random() * 100 + 50,
-      `car-${Math.round(Math.random() * 2)}`
+      `car-${Math.round(Math.random() * 2)}`,
+      2
     ),
     new Enemy(
       0,
       365,
       Math.random() * 100 + 60,
-      `car-${Math.round(Math.random() * 2)}`
+      `car-${Math.round(Math.random() * 2)}`,
+      1
     )
   );
 }
