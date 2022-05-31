@@ -131,11 +131,33 @@ var Engine = (function (global) {
     /* Loop through all of the objects within the allEnemies array and call
      * the render function you have defined.
      */
-    allEnemies.forEach(function (enemy) {
-      enemy.render();
-    });
+    if (player.dy > 300) {
+      allEnemies.forEach(function (enemy) {
+        enemy.render();
+      });
+      player.render();
+    }
 
-    player.render();
+    if (player.dy < 300 && player.dy > 200) {
+      allEnemies[0].render();
+      allEnemies[1].render();
+      player.render();
+      allEnemies[2].render();
+    }
+
+    if (player.dy < 200 && player.dy > 100) {
+      allEnemies[0].render();
+      player.render();
+      allEnemies[1].render();
+      allEnemies[2].render();
+    }
+
+    if (player.dy < 100) {
+      player.render();
+      allEnemies[0].render();
+      allEnemies[1].render();
+      allEnemies[2].render();
+    }
   }
 
   /* This function does nothing but it could have been a good place to
