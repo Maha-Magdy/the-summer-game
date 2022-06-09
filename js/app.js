@@ -2,6 +2,8 @@
 var character = localStorage["chosenCharacter"];
 let score = 0;
 let life = 3;
+// This variable will be using to make the cars move faster after each player pass
+let speedConstant = 100;
 
 // Enemies our player must avoid
 var Enemy = function (x, y, speed, car, platform) {
@@ -26,7 +28,7 @@ Enemy.prototype.update = function (dt) {
   this.x = this.x + this.speed * dt;
   if (this.x >= 675) {
     this.x = 0;
-    this.speed = Math.random() * 100 + 50;
+    this.speed = Math.random() * speedConstant + speedConstant;
     this.sprite = `images/game-board-elements/car-${Math.round(
       Math.random() * 2
     )}.gif`;
@@ -49,6 +51,7 @@ Enemy.prototype.checkCollision = function () {
     player.dy >= this.y - 135
   ) {
     console.log("Heeeey collision bam_1!");
+    handleLife();
   }
 
   if (
@@ -59,6 +62,7 @@ Enemy.prototype.checkCollision = function () {
     player.dy >= this.y - 135
   ) {
     console.log("Heeeey collision bam_2!");
+    handleLife();
   }
 
   if (
@@ -69,6 +73,7 @@ Enemy.prototype.checkCollision = function () {
     player.dy >= this.y - 135
   ) {
     console.log("Heeeey collision bam_3!");
+    handleLife();
   }
 };
 
@@ -89,6 +94,8 @@ Player.prototype.update = function () {};
 
 // renders the player
 Player.prototype.render = function () {
+  // console.log("dy is, ", this.dy); => 20
+  // console.log("dy is, ", (this.dy - this.speed + 578) % 578); => 548
   ctx.drawImage(
     Resources.get(this.sprite),
     this.sx,
@@ -140,6 +147,9 @@ Player.prototype.handleInput = function (key) {
     case "up":
       this.sx = 385;
       this.dy = (this.dy - this.speed + 578) % 578;
+      if (this.dy === 20) {
+        successPass();
+      }
       if (this.dy > 370) {
         this.dy = 370;
       }
@@ -166,33 +176,61 @@ var player = new Player(385, 0, 312.5, 550, 50, character);
 gameReset(); // setup defaults
 
 /*
- * resets the game in case of collision
+ * resets the game
  */
 function gameReset() {
   player.reset();
   score = 0;
+  speedConstant = 100;
   allEnemies = [];
   allEnemies.push(
     new Enemy(
       0,
       165,
-      Math.random() * 100 + 40,
+      Math.random() * speedConstant + speedConstant,
       `car-${Math.round(Math.random() * 2)}`,
       3
     ),
     new Enemy(
       0,
       265,
-      Math.random() * 100 + 50,
+      Math.random() * speedConstant + speedConstant,
       `car-${Math.round(Math.random() * 2)}`,
       2
     ),
     new Enemy(
       0,
       365,
-      Math.random() * 100 + 60,
+      Math.random() * speedConstant + speedConstant,
       `car-${Math.round(Math.random() * 2)}`,
       1
     )
   );
+}
+
+/*
+ * handle the life left in case of collision
+ */
+function handleLife() {
+  if (life > 0) {
+    life--;
+    player.reset();
+    console.log(`it's okay you have ${life} life left`);
+  } else {
+    player.reset();
+    console.log("Sorry Loser -------> Game over!");
+  }
+}
+
+/*
+ * handle when the player success to pass the road
+ */
+function successPass() {
+  score++;
+  player.reset();
+  speedConstant += 25;
+  allEnemies.forEach((enemy) => {
+    enemy.speed = Math.random() * speedConstant + speedConstant;
+  });
+  console.log("The score is", score);
 }
