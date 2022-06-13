@@ -1,6 +1,7 @@
 //predefined variables
 var character = localStorage["chosenCharacter"];
 let score = 0;
+let scoreEl = document.querySelector(".score");
 let life = 3;
 // This variable will be using to make the cars move faster after each player pass
 let speedConstant = 100;
@@ -181,6 +182,7 @@ gameReset(); // setup defaults
 function gameReset() {
   player.reset();
   score = 0;
+  scoreEl.textContent = `00`;
   speedConstant = 100;
   allEnemies = [];
   allEnemies.push(
@@ -227,10 +229,10 @@ function handleLife() {
  */
 function successPass() {
   score++;
+  scoreEl.textContent = score < 10 ? `0${score}` : score;
   player.reset();
   speedConstant += 25;
   allEnemies.forEach((enemy) => {
     enemy.speed = Math.random() * speedConstant + speedConstant;
   });
-  console.log("The score is", score);
 }

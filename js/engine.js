@@ -61,6 +61,10 @@ var Engine = (function (global) {
     win.requestAnimationFrame(main);
   }
 
+  /* This setInterval which allow having a countdown timer
+   * and when there is no time left, it will stop the setInterval by
+   its id using clearInterval
+   */
   let timerId = setInterval(function () {
     let minutes = Math.floor(countDownTime / 60);
     let seconds = countDownTime % 60;
