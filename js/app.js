@@ -3,6 +3,7 @@ var character = localStorage["chosenCharacter"];
 let score = 0;
 let scoreEl = document.querySelector(".score");
 let life = 3;
+let lifeEl = document.querySelector(".hearts-container");
 // This variable will be using to make the cars move faster after each player pass
 let speedConstant = 100;
 
@@ -214,11 +215,17 @@ function gameReset() {
  * handle the life left in case of collision
  */
 function handleLife() {
-  if (life > 0) {
+  if (life > 1) {
     life--;
+    lifeEl.innerHTML = "";
+    for (let i = 0; i < life; i++) {
+      const spanEl = document.createElement("span");
+      lifeEl.appendChild(spanEl);
+    }
     player.reset();
-    console.log(`it's okay you have ${life} life left`);
   } else {
+    life--;
+    lifeEl.innerHTML = "";
     player.reset();
     console.log("Sorry Loser -------> Game over!");
   }

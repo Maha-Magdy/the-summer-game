@@ -192,6 +192,7 @@ var Engine = (function (global) {
    * all of these images are properly loaded our game will start.
    */
   Resources.load([
+    "images/game-board-elements/life-heart.svg",
     "images/game-board-elements/background-of-the-main-screen.jpg",
     `images/game-board-elements/car-0.gif`,
     `images/game-board-elements/car-1.gif`,
