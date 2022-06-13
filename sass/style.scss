@@ -1,349 +1,355 @@
-@import 'game-board';
-
 /***** Fonts *****/
 @font-face {
-    font-family: 'luckiestGuy';
-    src: url('../fonts/LuckiestGuy-Regular.ttf');
-    font-weight: bold;
-    font-style: normal
+  font-family: "luckiestGuy";
+  src: url("../fonts/LuckiestGuy-Regular.ttf");
+  font-weight: bold;
+  font-style: normal;
 }
 
 /***** Variables *****/
-$dark-purple:#784296;
+$dark-purple: #784296;
 
 body {
-    margin: 0;
-    font-family: 'Roboto';
+  margin: 0;
+  font-family: "Roboto";
 }
 
 /***** genaric & common classes *****/
 .show {
-    display: block;
+  display: block;
 }
 
 .hide {
-    display: none;
+  display: none;
 }
 
 .splash-screen-main,
 .choose-character-main {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
 
-    h6 {
-        position: absolute;
-        bottom: 0;
-        text-align: center;
-    }
+  h6 {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+  }
 }
-
 
 /***** start for splashscreen style *****/
 .splash-screen-main {
-    flex-direction: column;
-    background: url(../images/splash-screen-elements/background.jpg) no-repeat center;
-    background-size: cover;
+  flex-direction: column;
+  background: url(../images/splash-screen-elements/background.jpg) no-repeat
+    center;
+  background-size: cover;
 
-    h6 {
-        color: $dark-purple;
-    }
+  h6 {
+    color: $dark-purple;
+  }
 }
 
 .basic-ellipse {
-    width: 0;
-    height: 0;
-    top: -6%;
-    position: relative;
-    background: url(../images/splash-screen-elements/Ellipse.png) no-repeat center;
-    background-size: contain;
-    cursor: pointer;
+  width: 0;
+  height: 0;
+  top: -6%;
+  position: relative;
+  background: url(../images/splash-screen-elements/Ellipse.png) no-repeat center;
+  background-size: contain;
+  cursor: pointer;
 }
 
 .start-block,
 .summer-block,
 .slipper-block {
-    position: absolute;
-    visibility: hidden;
+  position: absolute;
+  visibility: hidden;
 }
 
 .start-block {
-    width: 100%;
-    height: 33%;
-    top: 12%;
+  width: 100%;
+  height: 33%;
+  top: 12%;
 }
 
 .summer-block {
-    width: 100%;
-    height: 40%;
-    bottom: 10%;
+  width: 100%;
+  height: 40%;
+  bottom: 10%;
 }
 
 .slipper-block {
-    width: 115px;
-    height: 98px;
-    bottom: -30%;
-    background: url(../images/splash-screen-elements/slipper.png) no-repeat center;
-    background-size: 100%;
-    cursor: auto;
+  width: 115px;
+  height: 98px;
+  bottom: -30%;
+  background: url(../images/splash-screen-elements/slipper.png) no-repeat center;
+  background-size: 100%;
+  cursor: auto;
 }
 
 .start-block {
+  .s-letter,
+  .t-letter,
+  .a-letter,
+  .r-letter,
+  .t-second-letter {
+    position: absolute;
+  }
 
-    .s-letter,
-    .t-letter,
-    .a-letter,
-    .r-letter,
-    .t-second-letter {
-        position: absolute;
-    }
+  .s-letter {
+    width: 65px;
+    height: 65px;
+    left: 5px;
+    background: url(../images/splash-screen-elements/start-word/s-start.png)
+      no-repeat center;
+    background-size: 100%;
+  }
 
-    .s-letter {
-        width: 65px;
-        height: 65px;
-        left: 5px;
-        background: url(../images/splash-screen-elements/start-word/s-start.png) no-repeat center;
-        background-size: 100%;
-    }
+  .t-letter {
+    width: 55px;
+    height: 75px;
+    left: 50px;
+    top: -18px;
+    background: url(../images/splash-screen-elements/start-word/t-start.png)
+      no-repeat center;
+    background-size: 100%;
+  }
 
-    .t-letter {
-        width: 55px;
-        height: 75px;
-        left: 50px;
-        top: -18px;
-        background: url(../images/splash-screen-elements/start-word/t-start.png) no-repeat center;
-        background-size: 100%;
-    }
+  .a-letter {
+    width: 50px;
+    height: 66px;
+    left: 78px;
+    top: 1px;
+    background: url(../images/splash-screen-elements/start-word/a-start.png)
+      no-repeat center;
+    background-size: 100%;
+  }
 
-    .a-letter {
-        width: 50px;
-        height: 66px;
-        left: 78px;
-        top: 1px;
-        background: url(../images/splash-screen-elements/start-word/a-start.png) no-repeat center;
-        background-size: 100%;
-    }
+  .r-letter {
+    width: 50px;
+    height: 69px;
+    right: 50px;
+    top: -5px;
+    background: url(../images/splash-screen-elements/start-word/r-start.png)
+      no-repeat center;
+    background-size: 100%;
+  }
 
-    .r-letter {
-        width: 50px;
-        height: 69px;
-        right: 50px;
-        top: -5px;
-        background: url(../images/splash-screen-elements/start-word/r-start.png) no-repeat center;
-        background-size: 100%;
-    }
-
-    .t-second-letter {
-        width: 52px;
-        height: 75px;
-        right: 14px;
-        top: 0px;
-        background: url(../images/splash-screen-elements/start-word/t-second-start.png) no-repeat center;
-        background-size: 100%;
-    }
+  .t-second-letter {
+    width: 52px;
+    height: 75px;
+    right: 14px;
+    top: 0px;
+    background: url(../images/splash-screen-elements/start-word/t-second-start.png)
+      no-repeat center;
+    background-size: 100%;
+  }
 }
 
 .summer-block {
+  .s-letter,
+  .u-letter,
+  .m-letter,
+  .m-second-letter,
+  .e-letter,
+  .r-letter {
+    position: absolute;
+  }
 
-    .s-letter,
-    .u-letter,
-    .m-letter,
-    .m-second-letter,
-    .e-letter,
-    .r-letter {
-        position: absolute;
-    }
+  .s-letter {
+    width: 65px;
+    height: 65px;
+    left: -45px;
+    background: url(../images/splash-screen-elements/summer-word/s-summer.png)
+      no-repeat center;
+    background-size: 100%;
+    z-index: 2;
+  }
 
-    .s-letter {
-        width: 65px;
-        height: 65px;
-        left: -45px;
-        background: url(../images/splash-screen-elements/summer-word/s-summer.png) no-repeat center;
-        background-size: 100%;
-        z-index: 2;
-    }
+  .u-letter {
+    width: 45px;
+    height: 66px;
+    left: 15px;
+    top: -7px;
+    background: url(../images/splash-screen-elements/summer-word/u-summer.png)
+      no-repeat center;
+    background-size: 100%;
+    z-index: 1;
+  }
 
-    .u-letter {
-        width: 45px;
-        height: 66px;
-        left: 15px;
-        top: -7px;
-        background: url(../images/splash-screen-elements/summer-word/u-summer.png) no-repeat center;
-        background-size: 100%;
-        z-index: 1;
-    }
+  .m-letter {
+    width: 70px;
+    height: 76px;
+    left: 49px;
+    background: url(../images/splash-screen-elements/summer-word/m-summer.png)
+      no-repeat center;
+    background-size: 100%;
+  }
 
-    .m-letter {
-        width: 70px;
-        height: 76px;
-        left: 49px;
-        background: url(../images/splash-screen-elements/summer-word/m-summer.png) no-repeat center;
-        background-size: 100%;
-    }
+  .m-second-letter {
+    width: 63px;
+    height: 79px;
+    right: 50px;
+    top: -10px;
+    background: url(../images/splash-screen-elements/summer-word/m-second-summer.png)
+      no-repeat center;
+    background-size: 100%;
+  }
 
-    .m-second-letter {
-        width: 63px;
-        height: 79px;
-        right: 50px;
-        top: -10px;
-        background: url(../images/splash-screen-elements/summer-word/m-second-summer.png) no-repeat center;
-        background-size: 100%;
-    }
+  .e-letter {
+    width: 53px;
+    height: 68px;
+    right: 7px;
+    top: 7px;
+    background: url(../images/splash-screen-elements/summer-word/e-summer.png)
+      no-repeat center;
+    background-size: 100%;
+    z-index: 1;
+  }
 
-    .e-letter {
-        width: 53px;
-        height: 68px;
-        right: 7px;
-        top: 7px;
-        background: url(../images/splash-screen-elements/summer-word/e-summer.png) no-repeat center;
-        background-size: 100%;
-        z-index: 1;
-    }
-
-    .r-letter {
-        width: 60px;
-        height: 80px;
-        right: -44px;
-        top: -13px;
-        background: url(../images/splash-screen-elements/summer-word/r-summer.png) no-repeat center;
-        background-size: 100%;
-    }
-
+  .r-letter {
+    width: 60px;
+    height: 80px;
+    right: -44px;
+    top: -13px;
+    background: url(../images/splash-screen-elements/summer-word/r-summer.png)
+      no-repeat center;
+    background-size: 100%;
+  }
 }
 
-// animation for hover on ellipse 
+// animation for hover on ellipse
 .basic-ellipse:hover {
-    animation-name: lessScale;
-    animation-duration: .5s;
-    animation-timing-function: ease;
-    transform: scale(.98);
+  animation-name: lessScale;
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
+  transform: scale(0.98);
 }
 
 @keyframes lessScale {
-    from {
-        transform: scale(1);
-    }
+  from {
+    transform: scale(1);
+  }
 
-    to {
-        transform: scale(.98);
-    }
+  to {
+    transform: scale(0.98);
+  }
 }
 
 #silenceAudio {
-    display: none;
+  display: none;
 }
 
 /***** start for choose character style *****/
 
-
 .choose-character-main {
-    justify-content: space-evenly;
-    background-color: #fee000b0;
+  justify-content: space-evenly;
+  background-color: #fee000b0;
 
-    .boy-section,
-    .girl-section {
-        width: 200px;
-        height: 200px;
-        position: relative;
-        cursor: pointer;
+  .boy-section,
+  .girl-section {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    cursor: pointer;
 
-        .ellipse-animatiom-set,
-        .character-block {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-        }
-
-        .ellipse-animation-set>img {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            opacity: 0;
-            animation: circle-pulsing-animation 4s cubic-bezier(.36, .11, .89, .32) infinite;
-        }
-
-        .character-block>img {
-            &:first-child {
-                width: 100%;
-                height: 100%;
-                position: absolute;
-            }
-
-            &:nth-child(2) {
-                width: 70%;
-                height: 95%;
-                position: absolute;
-                bottom: 0;
-                left: 16%;
-                transform: translateX(-50%);
-                opacity: 1;
-
-                &.girl-character {
-                    height: 102%;
-                    transform: translateX(-48%);
-                }
-            }
-
-        }
+    .ellipse-animatiom-set,
+    .character-block {
+      width: 100%;
+      height: 100%;
+      position: absolute;
     }
 
-    h6 {
-        color: #463024;
+    .ellipse-animation-set > img {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      opacity: 0;
+      animation: circle-pulsing-animation 4s
+        cubic-bezier(0.36, 0.11, 0.89, 0.32) infinite;
     }
+
+    .character-block > img {
+      &:first-child {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+      }
+
+      &:nth-child(2) {
+        width: 70%;
+        height: 95%;
+        position: absolute;
+        bottom: 0;
+        left: 16%;
+        transform: translateX(-50%);
+        opacity: 1;
+
+        &.girl-character {
+          height: 102%;
+          transform: translateX(-48%);
+        }
+      }
+    }
+  }
+
+  h6 {
+    color: #463024;
+  }
 }
 
 @keyframes circle-pulsing-animation {
-    from {
-        transform: scale(.75, .75);
-        opacity: 1;
-    }
+  from {
+    transform: scale(0.75, 0.75);
+    opacity: 1;
+  }
 
-    to {
-        transform: scale(2, 2);
-        opacity: 0;
-    }
+  to {
+    transform: scale(2, 2);
+    opacity: 0;
+  }
 }
 
 // this special style to work only on IE10+ & Microsoft Edge Browsers
 _:-ms-lang(x),
 .choose-character-main {
-    background-color: #fde84d;
+  background-color: #fde84d;
 
-    .boy-section {
-        margin-right: 150px;
-    }
+  .boy-section {
+    margin-right: 150px;
+  }
 
-    .girl-section {
-        margin-left: 150px;
-    }
+  .girl-section {
+    margin-left: 150px;
+  }
 
-    h6 {
-        left: 50%;
-        transform: translateX(-50%);
-    }
+  h6 {
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 // this special style to work only on Microsoft Edge Browsers
-@supports (-ms-ime-align:auto) {
-    .choose-character-main {
-
-        .boy-section,
-        .girl-section {
-            position: absolute;
-            margin: 0;
-        }
-
-        .boy-section {
-
-            left: 25%;
-        }
-
-        .girl-section {
-            right: 25%;
-        }
+@supports (-ms-ime-align: auto) {
+  .choose-character-main {
+    .boy-section,
+    .girl-section {
+      position: absolute;
+      margin: 0;
     }
+
+    .boy-section {
+      left: 25%;
+    }
+
+    .girl-section {
+      right: 25%;
+    }
+  }
 }
+
+/***** start for game board style *****/
+@import "game-board";

@@ -22,7 +22,10 @@ var Engine = (function (global) {
     canvas = doc.createElement("canvas"),
     ctx = canvas.getContext("2d"),
     lastTime,
-    character = localStorage["chosenCharacter"];
+    character = localStorage["chosenCharacter"],
+    // countDownTime => 3 minutes multiply by 60 to convert minutes to seconds.
+    countDownTime = 3 * 60,
+    countDownEl = document.querySelector(".countDown");
 
   canvas.width = 675;
   canvas.height = 578;
@@ -57,6 +60,18 @@ var Engine = (function (global) {
      */
     win.requestAnimationFrame(main);
   }
+
+  let timerId = setInterval(function () {
+    let minutes = Math.floor(countDownTime / 60);
+    let seconds = countDownTime % 60;
+    minutes = minutes <= 3 ? `0` + minutes : minutes;
+    seconds = seconds < 10 ? `0` + seconds : seconds;
+    countDownEl.textContent = `${minutes}:${seconds}`;
+    if (countDownTime === 0) {
+      clearInterval(timerId);
+    }
+    countDownTime--;
+  }, 1000);
 
   /* This function does some initial setup that should only occur once,
    * particularly setting the lastTime variable that is required for the
