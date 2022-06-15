@@ -265,7 +265,8 @@ _:-ms-lang(x),
   align-items: center;
   justify-content: center; }
   .game-board-container .canvas-container {
-    height: 578px; }
+    height: 578px;
+    position: relative; }
   .game-board-container canvas {
     border-radius: 10px;
     border: 2px solid white;
@@ -293,7 +294,36 @@ _:-ms-lang(x),
   width: 1em;
   height: 1em;
   margin: 0 0.25em;
-  background: url(../images/game-board-elements/life-heart.svg) no-repeat center;
+  background: url(../images/game-board-elements/life-heart.png) no-repeat center;
   background-size: cover; }
+
+.playAgain-container {
+  color: white;
+  position: absolute;
+  top: 505px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center; }
+
+.playAgain-container > div {
+  position: relative;
+  font-size: 1.2em;
+  cursor: pointer;
+  letter-spacing: 0.15em;
+  font-family: luckiestGuy; }
+
+.playAgain-container > div > span {
+  position: relative;
+  display: inline-block;
+  animation: wavy 1.5s infinite;
+  animation-delay: calc(0.1s * var(--i)); }
+
+@keyframes wavy {
+  0%,
+  40%,
+  100% {
+    transform: translateY(0); }
+  20% {
+    transform: translateY(-10px); } }
 
 /*# sourceMappingURL=style.css.map */

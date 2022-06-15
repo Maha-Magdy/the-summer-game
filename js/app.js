@@ -4,13 +4,17 @@ let score = 0;
 let scoreEl = document.querySelector(".score");
 let life = 3;
 let lifeEl = document.querySelector(".hearts-container");
+let gameOverStatus = false;
+// countDownTime => 3 minutes multiply by 60 to convert minutes to seconds.
+let countDownTime = 3 * 60,
+  countDownEl = document.querySelector(".countDown"),
+  timerId;
 // This variable will be using to make the cars move faster after each player pass
 let speedConstant = 100;
 
 // Enemies our player must avoid
 var Enemy = function (x, y, speed, car, platform) {
   // Variables applied to each of our instances go here,
-  // we've provided one for you to get started
   this.x = x;
   this.y = y;
   this.speed = speed;
@@ -52,8 +56,7 @@ Enemy.prototype.checkCollision = function () {
     player.dy <= this.y - 50 &&
     player.dy >= this.y - 135
   ) {
-    console.log("Heeeey collision bam_1!");
-    handleLife();
+    handleLoseLife();
   }
 
   if (
@@ -63,8 +66,7 @@ Enemy.prototype.checkCollision = function () {
     player.dy <= this.y - 50 &&
     player.dy >= this.y - 135
   ) {
-    console.log("Heeeey collision bam_2!");
-    handleLife();
+    handleLoseLife();
   }
 
   if (
@@ -74,8 +76,7 @@ Enemy.prototype.checkCollision = function () {
     player.dy <= this.y - 50 &&
     player.dy >= this.y - 135
   ) {
-    console.log("Heeeey collision bam_3!");
-    handleLife();
+    handleLoseLife();
   }
 };
 
@@ -170,7 +171,7 @@ Player.prototype.handleInput = function (key) {
   }
 };
 
-// Now instantiate your objects.
+// Now instantiate our objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var allEnemies = [];
@@ -181,9 +182,26 @@ gameReset(); // setup defaults
  * resets the game
  */
 function gameReset() {
-  player.reset();
+  life = 3;
+  handleLifeDisplay();
   score = 0;
   scoreEl.textContent = `00`;
+  countDownTime = 3 * 60;
+  /* This setInterval which allow having a countdown timer
+   * and when there is no time left, it will stop the setInterval by
+   its id using clearInterval
+   */
+  timerId = setInterval(function () {
+    let minutes = Math.floor(countDownTime / 60);
+    let seconds = countDownTime % 60;
+    minutes = minutes <= 3 ? `0` + minutes : minutes;
+    seconds = seconds < 10 ? `0` + seconds : seconds;
+    countDownEl.textContent = `${minutes}:${seconds}`;
+    if (countDownTime === 0) {
+      clearInterval(timerId);
+    }
+    countDownTime--;
+  }, 1000);
   speedConstant = 100;
   allEnemies = [];
   allEnemies.push(
@@ -209,25 +227,32 @@ function gameReset() {
       1
     )
   );
+  player.reset();
+  gameOverStatus = false;
 }
 
 /*
  * handle the life left in case of collision
  */
-function handleLife() {
+function handleLoseLife() {
   if (life > 1) {
     life--;
     lifeEl.innerHTML = "";
-    for (let i = 0; i < life; i++) {
-      const spanEl = document.createElement("span");
-      lifeEl.appendChild(spanEl);
-    }
+    handleLifeDisplay();
     player.reset();
   } else {
     life--;
     lifeEl.innerHTML = "";
     player.reset();
+    gameOverStatus = true;
     console.log("Sorry Loser -------> Game over!");
+  }
+}
+
+function handleLifeDisplay() {
+  for (let i = 0; i < life; i++) {
+    const spanEl = document.createElement("span");
+    lifeEl.appendChild(spanEl);
   }
 }
 
@@ -242,4 +267,28 @@ function successPass() {
   allEnemies.forEach((enemy) => {
     enemy.speed = Math.random() * speedConstant + speedConstant;
   });
+}
+
+/* Draw play again element */
+function drawPlayAgain() {
+  const playAgainContainer = document.createElement("div");
+  playAgainContainer.classList.add("playAgain-container");
+  const playAgain = document.createElement("div");
+  playAgain.classList.add("playAgain");
+  playAgainText = "PLAY AGAIN";
+  playAgainTextArr = [">>", " ", ...playAgainText.split("")];
+  for (let i = 0; i < playAgainTextArr.length; i++) {
+    const span = document.createElement("span");
+    span.setAttribute("style", `--i: ${i + 1}`);
+    if (i === 6 || i === 1) {
+      span.textContent = "\u00A0";
+    } else {
+      span.textContent = playAgainTextArr[i];
+    }
+    playAgain.appendChild(span);
+  }
+  playAgainContainer.appendChild(playAgain);
+  document
+    .getElementById("canvas-container")
+    .insertBefore(playAgainContainer, document.querySelector("canvas"));
 }

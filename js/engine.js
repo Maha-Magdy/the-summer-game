@@ -23,13 +23,11 @@ var Engine = (function (global) {
     ctx = canvas.getContext("2d"),
     lastTime,
     character = localStorage["chosenCharacter"],
-    // countDownTime => 3 minutes multiply by 60 to convert minutes to seconds.
-    countDownTime = 3 * 60,
-    countDownEl = document.querySelector(".countDown");
+    canvasContainerEl = document.getElementById("canvas-container");
 
   canvas.width = 675;
   canvas.height = 578;
-  document.getElementById("canvas-container").appendChild(canvas);
+  canvasContainerEl.appendChild(canvas);
 
   /* This function serves as the kickoff point for the game loop itself
    * and handles properly calling the update and render methods.
@@ -60,22 +58,6 @@ var Engine = (function (global) {
      */
     win.requestAnimationFrame(main);
   }
-
-  /* This setInterval which allow having a countdown timer
-   * and when there is no time left, it will stop the setInterval by
-   its id using clearInterval
-   */
-  let timerId = setInterval(function () {
-    let minutes = Math.floor(countDownTime / 60);
-    let seconds = countDownTime % 60;
-    minutes = minutes <= 3 ? `0` + minutes : minutes;
-    seconds = seconds < 10 ? `0` + seconds : seconds;
-    countDownEl.textContent = `${minutes}:${seconds}`;
-    if (countDownTime === 0) {
-      clearInterval(timerId);
-    }
-    countDownTime--;
-  }, 1000);
 
   /* This function does some initial setup that should only occur once,
    * particularly setting the lastTime variable that is required for the
@@ -121,25 +103,29 @@ var Engine = (function (global) {
    * they are just drawing the entire screen over and over.
    */
   function render() {
-    /* This array holds the relative URL to the image used
-     * for the background of the image.
-     */
-    var backgroundImage =
-      "images/game-board-elements/background-of-the-main-screen.jpg";
+    if (gameOverStatus) {
+      gameOver();
+    } else {
+      /* This array holds the relative URL to the image used
+       * for the background of the image.
+       */
+      var backgroundImage =
+        "images/game-board-elements/background-of-the-main-screen.jpg";
 
-    // Before drawing, clear existing canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Before drawing, clear existing canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    /* The drawImage function of the canvas' context element
-     * requires 3 parameters: the image to draw, the x coordinate
-     * to start drawing and the y coordinate to start drawing.
-     * We're using our Resources helpers to refer to our images
-     * so that we get the benefits of caching these images, since
-     * we're using them over and over.
-     */
-    ctx.drawImage(Resources.get(backgroundImage), 0, 0, 675, 578);
+      /* The drawImage function of the canvas' context element
+       * requires 3 parameters: the image to draw, the x coordinate
+       * to start drawing and the y coordinate to start drawing.
+       * We're using our Resources helpers to refer to our images
+       * so that we get the benefits of caching these images, since
+       * we're using them over and over.
+       */
+      ctx.drawImage(Resources.get(backgroundImage), 0, 0, 675, 578);
 
-    renderEntities();
+      renderEntities();
+    }
   }
 
   /* This function is called by the render function and is called on each game
@@ -187,13 +173,66 @@ var Engine = (function (global) {
     // noop
   }
 
+  /* handle a game over screen */
+
+  /* This function responsible for handle Enter input from user in game over screen to play again*/
+  const handleEnterInputOnPlayAgain = function (e) {
+    if (e.key === "Enter") {
+      canvasContainerEl.childNodes[1].remove();
+      document.removeEventListener("keydown", handleEnterInputOnPlayAgain);
+      gameReset();
+    }
+  };
+
+  function gameOver() {
+    /* This array holds the relative URL to the image used
+     * for the background of the image.
+     */
+    const backgroundImage =
+      "images/game-board-elements/background-of-the-game-over-screen.jpg";
+
+    // Before drawing, clear existing canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    /* The drawImage function of the canvas' context element
+     * requires 3 parameters: the image to draw, the x coordinate
+     * to start drawing and the y coordinate to start drawing.
+     * We're using our Resources helpers to refer to our images
+     * so that we get the benefits of caching these images, since
+     * we're using them over and over.
+     */
+    ctx.drawImage(Resources.get(backgroundImage), 0, 0, 675, 578);
+
+    /* When the game is over, there will no need for count down timer.
+     * So we're gonna stop it using clearInterval but in the same time reserve its value
+     * for the player, instead of reset it, or make it equal 0
+     */
+    clearInterval(timerId);
+
+    /* here we will check if play again button on the screen or not to draw it,
+     * then add the click handler attached to it.
+     */
+    if (canvasContainerEl.querySelector(".playAgain-container") === null) {
+      drawPlayAgain();
+      document
+        .querySelector(".playAgain-container")
+        .addEventListener("click", function () {
+          canvasContainerEl.childNodes[1].remove();
+          gameReset();
+        });
+    }
+
+    document.addEventListener("keydown", handleEnterInputOnPlayAgain);
+  }
+
   /* Go ahead and load all of the images we know we're going to need to
    * draw our game level. Then set init as the callback method, so that when
    * all of these images are properly loaded our game will start.
    */
   Resources.load([
-    "images/game-board-elements/life-heart.svg",
     "images/game-board-elements/background-of-the-main-screen.jpg",
+    "images/game-board-elements/background-of-the-game-over-screen.jpg",
+    "images/game-board-elements/life-heart.png",
     `images/game-board-elements/car-0.gif`,
     `images/game-board-elements/car-1.gif`,
     `images/game-board-elements/car-2.gif`,
